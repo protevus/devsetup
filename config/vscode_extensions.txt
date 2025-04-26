@@ -1,0 +1,61 @@
+# Visual Studio Code Extensions
+# This file contains a list of extensions to be installed by the devsetup.sh script
+# Lines starting with # are comments and will be ignored
+
+# General Development
+ms-vscode.vscode-typescript-next
+dbaeumer.vscode-eslint
+esbenp.prettier-vscode
+streetsidesoftware.code-spell-checker
+eamodio.gitlens
+mhutchie.git-graph
+ms-vsliveshare.vsliveshare
+ritwickdey.LiveServer
+ms-vscode-remote.remote-ssh
+ms-vscode-remote.remote-containers
+ms-azuretools.vscode-docker
+
+# Language-specific Extensions
+# Java
+redhat.java
+vscjava.vscode-java-debug
+vscjava.vscode-java-test
+vscjava.vscode-maven
+vscjava.vscode-java-dependency
+
+# Go
+golang.go
+
+# Flutter/Dart
+Dart-Code.dart-code
+Dart-Code.flutter
+
+# .NET
+ms-dotnettools.csharp
+ms-dotnettools.vscode-dotnet-runtime
+
+# Node.js
+wix.vscode-import-cost
+christian-kohler.npm-intellisense
+christian-kohler.path-intellisense
+
+# Python
+ms-python.python
+ms-python.vscode-pylance
+
+# Web Development
+ritwickdey.LiveServer
+formulahendry.auto-close-tag
+formulahendry.auto-rename-tag
+bradlc.vscode-tailwindcss
+Vue.volar
+
+# DevOps
+ms-kubernetes-tools.vscode-kubernetes-tools
+redhat.vscode-yaml
+
+# Productivity
+yzhang.markdown-all-in-one
+shd101wyy.markdown-preview-enhanced
+aaron-bond.better-comments
+alefragnani.Bookmarks

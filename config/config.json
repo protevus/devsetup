@@ -1,0 +1,250 @@
+{
+  "vscode": {
+    "name": "Visual Studio Code",
+    "check_command": "code --version",
+    "version_regex": "^([0-9]+\\.[0-9]+\\.[0-9]+)",
+    "install_commands": [
+      "wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg",
+      "sudo install -D -o root -g root -m 644 packages.microsoft.gpg /etc/apt/keyrings/packages.microsoft.gpg",
+      "sudo sh -c 'echo \"deb [arch=amd64,arm64,armhf signed-by=/etc/apt/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main\" > /etc/apt/sources.list.d/vscode.list'",
+      "rm -f packages.microsoft.gpg",
+      "sudo apt update",
+      "sudo apt install -y code"
+    ],
+    "uninstall_commands": [
+      "sudo apt purge -y code",
+      "sudo rm -f /etc/apt/sources.list.d/vscode.list",
+      "sudo rm -f /etc/apt/keyrings/packages.microsoft.gpg",
+      "sudo apt update"
+    ],
+    "dependencies": [
+      "wget",
+      "gpg",
+      "apt-transport-https"
+    ]
+  },
+  "vscode-extensions": {
+    "name": "Visual Studio Code Extensions",
+    "check_command": "code --list-extensions",
+    "install_commands": [
+      "echo 'VSCode extensions will be installed from the extensions file'"
+    ],
+    "uninstall_commands": [
+      "echo 'VSCode extensions uninstallation not supported'"
+    ],
+    "dependencies": []
+  },
+  "gitkraken": {
+    "name": "GitKraken",
+    "check_command": "which gitkraken",
+    "version_regex": "([0-9]+\\.[0-9]+\\.[0-9]+)",
+    "install_commands": [
+      "wget -O gitkraken.deb https://release.gitkraken.com/linux/gitkraken-amd64.deb",
+      "sudo apt install -y ./gitkraken.deb",
+      "rm -f gitkraken.deb"
+    ],
+    "uninstall_commands": [
+      "sudo apt purge -y gitkraken"
+    ],
+    "dependencies": [
+      "wget",
+      "gconf2",
+      "gconf-service",
+      "libgtk2.0-0",
+      "libudev1",
+      "libappindicator1",
+      "libnotify4",
+      "libxtst6",
+      "libnss3",
+      "python",
+      "xdg-utils"
+    ]
+  },
+  "chrome": {
+    "name": "Google Chrome",
+    "check_command": "google-chrome --version",
+    "version_regex": "Google Chrome ([0-9]+\\.[0-9]+\\.[0-9]+\\.[0-9]+)",
+    "install_commands": [
+      "wget -O chrome.deb https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb",
+      "sudo apt install -y ./chrome.deb",
+      "rm -f chrome.deb"
+    ],
+    "uninstall_commands": [
+      "sudo apt purge -y google-chrome-stable"
+    ],
+    "dependencies": [
+      "wget"
+    ]
+  },
+  "edge": {
+    "name": "Microsoft Edge",
+    "check_command": "microsoft-edge --version",
+    "version_regex": "Microsoft Edge ([0-9]+\\.[0-9]+\\.[0-9]+\\.[0-9]+)",
+    "install_commands": [
+      "wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft-edge.gpg",
+      "sudo install -D -o root -g root -m 644 microsoft-edge.gpg /etc/apt/keyrings/microsoft-edge.gpg",
+      "sudo sh -c 'echo \"deb [arch=amd64 signed-by=/etc/apt/keyrings/microsoft-edge.gpg] https://packages.microsoft.com/repos/edge stable main\" > /etc/apt/sources.list.d/microsoft-edge.list'",
+      "rm -f microsoft-edge.gpg",
+      "sudo apt update",
+      "sudo apt install -y microsoft-edge-stable"
+    ],
+    "uninstall_commands": [
+      "sudo apt purge -y microsoft-edge-stable",
+      "sudo rm -f /etc/apt/sources.list.d/microsoft-edge.list",
+      "sudo apt update"
+    ],
+    "dependencies": [
+      "wget",
+      "gpg",
+      "apt-transport-https"
+    ]
+  },
+  "flutter": {
+    "name": "Flutter SDK",
+    "check_command": "{INSTALL_PATH}/flutter/bin/flutter --version",
+    "version_regex": "Flutter ([0-9]+\\.[0-9]+\\.[0-9]+)",
+    "install_commands": [
+      "mkdir -p {INSTALL_PATH}/flutter",
+      "wget -O flutter.tar.xz https://storage.googleapis.com/flutter_infra_release/releases/stable/linux/flutter_linux_3.19.3-stable.tar.xz",
+      "tar xf flutter.tar.xz -C {INSTALL_PATH}",
+      "rm flutter.tar.xz",
+      "{INSTALL_PATH}/flutter/bin/flutter precache"
+    ],
+    "uninstall_commands": [
+      "rm -rf {INSTALL_PATH}/flutter"
+    ],
+    "path_exports": [
+      "export PATH=\"{INSTALL_PATH}/flutter/bin:$PATH\""
+    ],
+    "dependencies": [
+      "wget",
+      "git",
+      "unzip",
+      "xz-utils",
+      "curl"
+    ]
+  },
+  "android-sdk": {
+    "name": "Android SDK",
+    "check_command": "{INSTALL_PATH}/android-sdk/cmdline-tools/latest/bin/sdkmanager --version",
+    "version_regex": "([0-9]+\\.[0-9]+)",
+    "install_commands": [
+      "mkdir -p {INSTALL_PATH}/android-sdk/cmdline-tools",
+      "wget -O cmdline-tools.zip https://dl.google.com/android/repository/commandlinetools-linux-10406996_latest.zip",
+      "unzip -q cmdline-tools.zip -d {INSTALL_PATH}/android-sdk/cmdline-tools",
+      "mv {INSTALL_PATH}/android-sdk/cmdline-tools/cmdline-tools {INSTALL_PATH}/android-sdk/cmdline-tools/latest",
+      "rm cmdline-tools.zip",
+      "yes | {INSTALL_PATH}/android-sdk/cmdline-tools/latest/bin/sdkmanager --licenses",
+      "{INSTALL_PATH}/android-sdk/cmdline-tools/latest/bin/sdkmanager \"platform-tools\" \"platforms;android-34\" \"build-tools;34.0.0\""
+    ],
+    "uninstall_commands": [
+      "rm -rf {INSTALL_PATH}/android-sdk"
+    ],
+    "path_exports": [
+      "export ANDROID_HOME=\"{INSTALL_PATH}/android-sdk\"",
+      "export PATH=\"$ANDROID_HOME/cmdline-tools/latest/bin:$PATH\"",
+      "export PATH=\"$ANDROID_HOME/platform-tools:$PATH\""
+    ],
+    "dependencies": [
+      "wget",
+      "unzip",
+      "openjdk-17-jdk"
+    ]
+  },
+  "android-studio": {
+    "name": "Android Studio",
+    "check_command": "which studio.sh",
+    "version_regex": "([0-9]+\\.[0-9]+)",
+    "install_commands": [
+      "wget -O android-studio.tar.gz https://redirector.gvt1.com/edgedl/android/studio/ide-zips/2023.1.1.26/android-studio-2023.1.1.26-linux.tar.gz",
+      "sudo tar xf android-studio.tar.gz -C /opt",
+      "rm android-studio.tar.gz",
+      "sudo ln -sf /opt/android-studio/bin/studio.sh /usr/local/bin/studio"
+    ],
+    "uninstall_commands": [
+      "sudo rm -rf /opt/android-studio",
+      "sudo rm -f /usr/local/bin/studio"
+    ],
+    "dependencies": [
+      "wget",
+      "libc6:i386",
+      "libncurses5:i386",
+      "libstdc++6:i386",
+      "lib32z1",
+      "libbz2-1.0:i386"
+    ]
+  },
+  "dotnet": {
+    "name": ".NET SDK",
+    "check_command": "dotnet --version",
+    "version_regex": "([0-9]+\\.[0-9]+\\.[0-9]+)",
+    "install_commands": [
+      "wget -O packages-microsoft-prod.deb https://packages.microsoft.com/config/ubuntu/24.04/packages-microsoft-prod.deb",
+      "sudo dpkg -i packages-microsoft-prod.deb",
+      "rm packages-microsoft-prod.deb",
+      "sudo apt update",
+      "sudo apt install -y dotnet-sdk-8.0"
+    ],
+    "uninstall_commands": [
+      "sudo apt purge -y dotnet-sdk-8.0",
+      "sudo apt purge -y packages-microsoft-prod",
+      "sudo rm -f /etc/apt/sources.list.d/microsoft-prod.list",
+      "sudo apt update"
+    ],
+    "dependencies": [
+      "wget"
+    ]
+  },
+  "go": {
+    "name": "Go Programming Language",
+    "check_command": "go version",
+    "version_regex": "go version go([0-9]+\\.[0-9]+\\.[0-9]+)",
+    "install_commands": [
+      "wget -O go.tar.gz https://go.dev/dl/go1.22.1.linux-amd64.tar.gz",
+      "sudo rm -rf {INSTALL_PATH}/go",
+      "sudo tar -C {INSTALL_PATH} -xzf go.tar.gz",
+      "rm go.tar.gz"
+    ],
+    "uninstall_commands": [
+      "sudo rm -rf {INSTALL_PATH}/go"
+    ],
+    "path_exports": [
+      "export PATH=\"{INSTALL_PATH}/go/bin:$PATH\"",
+      "export GOPATH=\"$HOME/go\"",
+      "export PATH=\"$GOPATH/bin:$PATH\""
+    ],
+    "dependencies": [
+      "wget"
+    ]
+  },
+  "jdk": {
+    "name": "Java Development Kit",
+    "check_command": "java --version",
+    "version_regex": "openjdk ([0-9]+\\.[0-9]+\\.[0-9]+)",
+    "install_commands": [
+      "sudo apt update",
+      "sudo apt install -y openjdk-17-jdk"
+    ],
+    "uninstall_commands": [
+      "sudo apt purge -y openjdk-17-jdk openjdk-17-jre"
+    ],
+    "dependencies": []
+  },
+  "nodejs": {
+    "name": "Node.js",
+    "check_command": "node --version",
+    "version_regex": "v([0-9]+\\.[0-9]+\\.[0-9]+)",
+    "install_commands": [
+      "curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -",
+      "sudo apt install -y nodejs"
+    ],
+    "uninstall_commands": [
+      "sudo apt purge -y nodejs",
+      "sudo rm -f /etc/apt/sources.list.d/nodesource.list",
+      "sudo apt update"
+    ],
+    "dependencies": [
+      "curl"
+    ]
+  }
+}
