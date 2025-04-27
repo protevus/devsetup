@@ -1,0 +1,48 @@
+{
+  "type": "software",
+  "id": "flutter",
+  "name": "Flutter SDK",
+  "description": "Google's UI toolkit for building natively compiled applications",
+  "check_command": "{INSTALL_PATH}/flutter/bin/flutter --version",
+  "version_regex": "Flutter ([0-9]+\\.[0-9]+\\.[0-9]+)",
+  "install_commands": [
+    "mkdir -p {INSTALL_PATH}/flutter",
+    "wget -O flutter.tar.xz https://storage.googleapis.com/flutter_infra_release/releases/stable/linux/flutter_linux_3.19.3-stable.tar.xz",
+    "tar xf flutter.tar.xz -C {INSTALL_PATH}",
+    "rm flutter.tar.xz",
+    "{INSTALL_PATH}/flutter/bin/flutter precache"
+  ],
+  "uninstall_commands": [
+    "rm -rf {INSTALL_PATH}/flutter"
+  ],
+  "path_exports": [
+    "export PATH=\"{INSTALL_PATH}/flutter/bin:$PATH\""
+  ],
+  "dependencies": [
+    "wget",
+    "git",
+    "unzip",
+    "xz-utils",
+    "curl"
+  ],
+  "commands": {
+    "update": {
+      "description": "Update Flutter SDK to the latest version",
+      "execute": [
+        "{INSTALL_PATH}/flutter/bin/flutter upgrade"
+      ]
+    },
+    "doctor": {
+      "description": "Run Flutter doctor to check setup",
+      "execute": [
+        "{INSTALL_PATH}/flutter/bin/flutter doctor -v"
+      ]
+    },
+    "clean": {
+      "description": "Clean Flutter cache",
+      "execute": [
+        "{INSTALL_PATH}/flutter/bin/flutter clean"
+      ]
+    }
+  }
+}

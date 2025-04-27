@@ -1,0 +1,33 @@
+{
+  "nodes": [
+    {
+      "id": "dev-laptop",
+      "name": "Development Laptop",
+      "host": "192.168.1.100",
+      "user": "developer",
+      "key_file": "~/.ssh/dev_laptop",
+      "install_path": "/opt/sdks"
+    },
+    {
+      "id": "team-server",
+      "name": "Team Development Server",
+      "host": "dev-server.example.com",
+      "user": "admin",
+      "key_file": "~/.ssh/team_server",
+      "install_path": "/opt/development"
+    },
+    {
+      "id": "ci-server",
+      "name": "CI/CD Server",
+      "host": "ci.example.com",
+      "user": "ciuser",
+      "key_file": "~/.ssh/ci_server",
+      "install_path": "/var/lib/jenkins/sdks"
+    }
+  ],
+  "groups": {
+    "development": ["dev-laptop"],
+    "servers": ["team-server", "ci-server"],
+    "all": ["dev-laptop", "team-server", "ci-server"]
+  }
+}

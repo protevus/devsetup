@@ -1,0 +1,48 @@
+{
+  "type": "software",
+  "id": "android-studio",
+  "name": "Android Studio",
+  "description": "Integrated development environment for Android",
+  "check_command": "which studio.sh",
+  "version_regex": "([0-9]+\\.[0-9]+)",
+  "install_commands": [
+    "wget -O android-studio.tar.gz https://redirector.gvt1.com/edgedl/android/studio/ide-zips/2023.1.1.26/android-studio-2023.1.1.26-linux.tar.gz",
+    "sudo tar xf android-studio.tar.gz -C /opt",
+    "rm android-studio.tar.gz",
+    "sudo ln -sf /opt/android-studio/bin/studio.sh /usr/local/bin/studio"
+  ],
+  "uninstall_commands": [
+    "sudo rm -rf /opt/android-studio",
+    "sudo rm -f /usr/local/bin/studio"
+  ],
+  "dependencies": [
+    "wget",
+    "libc6:i386",
+    "libncurses5:i386",
+    "libstdc++6:i386",
+    "lib32z1",
+    "libbz2-1.0:i386"
+  ],
+  "path_exports": [],
+  "commands": {
+    "update": {
+      "description": "Check for Android Studio updates",
+      "execute": [
+        "echo 'Please open Android Studio and check for updates via Help > Check for Updates'"
+      ]
+    },
+    "create-desktop-entry": {
+      "description": "Create desktop entry for Android Studio",
+      "execute": [
+        "echo '[Desktop Entry]' > ~/.local/share/applications/android-studio.desktop",
+        "echo 'Name=Android Studio' >> ~/.local/share/applications/android-studio.desktop",
+        "echo 'Comment=Integrated Development Environment for Android' >> ~/.local/share/applications/android-studio.desktop",
+        "echo 'Exec=/opt/android-studio/bin/studio.sh' >> ~/.local/share/applications/android-studio.desktop",
+        "echo 'Icon=/opt/android-studio/bin/studio.png' >> ~/.local/share/applications/android-studio.desktop",
+        "echo 'Terminal=false' >> ~/.local/share/applications/android-studio.desktop",
+        "echo 'Type=Application' >> ~/.local/share/applications/android-studio.desktop",
+        "echo 'Categories=Development;IDE;' >> ~/.local/share/applications/android-studio.desktop"
+      ]
+    }
+  }
+}

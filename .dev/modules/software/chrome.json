@@ -1,0 +1,29 @@
+{
+  "type": "software",
+  "id": "chrome",
+  "name": "Google Chrome",
+  "description": "Web browser from Google",
+  "check_command": "google-chrome --version",
+  "version_regex": "Google Chrome ([0-9]+\\.[0-9]+\\.[0-9]+\\.[0-9]+)",
+  "install_commands": [
+    "wget -O chrome.deb https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb",
+    "sudo apt install -y ./chrome.deb",
+    "rm -f chrome.deb"
+  ],
+  "uninstall_commands": [
+    "sudo apt purge -y google-chrome-stable"
+  ],
+  "dependencies": [
+    "wget"
+  ],
+  "path_exports": [],
+  "commands": {
+    "update": {
+      "description": "Update Google Chrome to the latest version",
+      "execute": [
+        "sudo apt update",
+        "sudo apt install --only-upgrade google-chrome-stable"
+      ]
+    }
+  }
+}

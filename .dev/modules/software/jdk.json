@@ -1,0 +1,59 @@
+{
+  "type": "software",
+  "id": "jdk",
+  "name": "Java Development Kit",
+  "description": "Development environment for building applications and components using the Java programming language",
+  "check_command": "java --version",
+  "version_regex": "openjdk ([0-9]+\\.[0-9]+\\.[0-9]+)",
+  "install_commands": [
+    "sudo apt update",
+    "sudo apt install -y openjdk-17-jdk"
+  ],
+  "uninstall_commands": [
+    "sudo apt purge -y openjdk-17-jdk openjdk-17-jre"
+  ],
+  "dependencies": [],
+  "path_exports": [
+    "export JAVA_HOME=\"/usr/lib/jvm/java-17-openjdk-amd64\""
+  ],
+  "commands": {
+    "update": {
+      "description": "Update JDK to the latest version",
+      "execute": [
+        "sudo apt update",
+        "sudo apt install --only-upgrade openjdk-17-jdk"
+      ]
+    },
+    "switch-to-jdk-11": {
+      "description": "Switch to JDK 11",
+      "execute": [
+        "sudo apt install -y openjdk-11-jdk",
+        "sudo update-alternatives --set java /usr/lib/jvm/java-11-openjdk-amd64/bin/java",
+        "sudo update-alternatives --set javac /usr/lib/jvm/java-11-openjdk-amd64/bin/javac"
+      ]
+    },
+    "switch-to-jdk-17": {
+      "description": "Switch to JDK 17",
+      "execute": [
+        "sudo apt install -y openjdk-17-jdk",
+        "sudo update-alternatives --set java /usr/lib/jvm/java-17-openjdk-amd64/bin/java",
+        "sudo update-alternatives --set javac /usr/lib/jvm/java-17-openjdk-amd64/bin/javac"
+      ]
+    },
+    "list-alternatives": {
+      "description": "List available Java alternatives",
+      "execute": [
+        "sudo update-alternatives --list java",
+        "sudo update-alternatives --list javac"
+      ]
+    },
+    "create-hello-world": {
+      "description": "Create a Hello World Java program",
+      "execute": [
+        "mkdir -p ~/java-projects/hello",
+        "echo 'public class HelloWorld {\\n    public static void main(String[] args) {\\n        System.out.println(\"Hello, World!\");\\n    }\\n}' > ~/java-projects/hello/HelloWorld.java",
+        "cd ~/java-projects/hello && javac HelloWorld.java && java HelloWorld"
+      ]
+    }
+  }
+}

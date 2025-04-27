@@ -1,0 +1,29 @@
+{
+  "type": "workflow",
+  "id": "software-installation",
+  "name": "Software Installation",
+  "description": "Install all software packages",
+  "modules": [
+    "vscode"
+  ],
+  "commands": {
+    "pre-install": {
+      "description": "Pre-installation setup",
+      "execute": [
+        "echo 'Starting software installation...'"
+      ]
+    },
+    "post-install": {
+      "description": "Post-installation configuration",
+      "execute": [
+        "echo 'Software installation completed'",
+        "echo 'Configuring installed software...'"
+      ]
+    }
+  },
+  "sequence": [
+    "@pre-install",
+    "vscode:install",
+    "@post-install"
+  ]
+}

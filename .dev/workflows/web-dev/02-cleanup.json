@@ -1,0 +1,61 @@
+{
+  "type": "workflow",
+  "id": "cleanup",
+  "name": "System Cleanup",
+  "description": "Clean up after web development environment installation",
+  "commands": {
+    "pre-cleanup": {
+      "description": "Pre-cleanup tasks",
+      "execute": [
+        "echo 'Starting system cleanup...'"
+      ]
+    },
+    "clean-apt": {
+      "description": "Clean APT cache",
+      "execute": [
+        "sudo apt autoremove -y",
+        "sudo apt clean"
+      ]
+    },
+    "clean-npm": {
+      "description": "Clean npm cache",
+      "execute": [
+        "npm cache clean --force"
+      ]
+    },
+    "clean-yarn": {
+      "description": "Clean yarn cache",
+      "execute": [
+        "yarn cache clean"
+      ]
+    },
+    "create-sample-project": {
+      "description": "Create a sample web project",
+      "execute": [
+        "mkdir -p ~/web-projects/sample-app",
+        "cd ~/web-projects/sample-app && npm init -y",
+        "cd ~/web-projects/sample-app && npm install express",
+        "cd ~/web-projects/sample-app && echo 'const express = require(\"express\");\\nconst app = express();\\nconst port = 3000;\\n\\napp.get(\"/\", (req, res) => {\\n  res.send(\"<h1>Welcome to your Web Development Environment!</h1><p>This is a sample Express.js application.</p>\");\\n});\\n\\napp.listen(port, () => {\\n  console.log(`Sample app listening at http://localhost:${port}`);\\n});' > index.js",
+        "cd ~/web-projects/sample-app && echo '# Sample Web Application\\n\\nThis is a sample Express.js application created by the development environment setup script.\\n\\n## Running the application\\n\\n```bash\\nnode index.js\\n```\\n\\nThen open http://localhost:3000 in your browser.' > README.md",
+        "echo 'Sample web application created at ~/web-projects/sample-app'"
+      ]
+    },
+    "post-cleanup": {
+      "description": "Post-cleanup tasks",
+      "execute": [
+        "echo 'System cleanup completed'",
+        "echo 'Your web development environment is ready!'",
+        "echo 'To run the sample application, use: cd ~/web-projects/sample-app && node index.js'"
+      ]
+    }
+  },
+  "sequence": [
+    "@pre-cleanup",
+    "@clean-apt",
+    "@clean-npm",
+    "@clean-yarn",
+    "system-cleanup:clean-tmp",
+    "@create-sample-project",
+    "@post-cleanup"
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "type": "workflow",
+  "id": "cleanup",
+  "name": "System Cleanup",
+  "description": "Clean up after development environment installation",
+  "commands": {
+    "pre-cleanup": {
+      "description": "Pre-cleanup tasks",
+      "execute": [
+        "echo 'Starting system cleanup...'"
+      ]
+    },
+    "clean-apt": {
+      "description": "Clean APT cache",
+      "execute": [
+        "sudo apt autoremove -y",
+        "sudo apt clean"
+      ]
+    },
+    "clean-downloads": {
+      "description": "Clean downloads directory",
+      "execute": [
+        "rm -rf ~/Downloads/*.deb ~/Downloads/*.tar.gz ~/Downloads/*.zip 2>/dev/null || true"
+      ]
+    },
+    "clean-temp": {
+      "description": "Clean temporary files",
+      "execute": [
+        "rm -rf /tmp/tmp.* 2>/dev/null || true"
+      ]
+    },
+    "post-cleanup": {
+      "description": "Post-cleanup tasks",
+      "execute": [
+        "echo 'System cleanup completed'",
+        "echo 'Your development environment is ready!'"
+      ]
+    }
+  },
+  "sequence": [
+    "@pre-cleanup",
+    "@clean-apt",
+    "@clean-downloads",
+    "@clean-temp",
+    "system-cleanup:dev-cleanup",
+    "@post-cleanup"
+  ]
+}

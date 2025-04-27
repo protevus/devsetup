@@ -1,0 +1,68 @@
+{
+  "type": "workflow",
+  "id": "cleanup",
+  "name": "System Cleanup",
+  "description": "Clean up after mobile development environment installation",
+  "commands": {
+    "pre-cleanup": {
+      "description": "Pre-cleanup tasks",
+      "execute": [
+        "echo 'Starting system cleanup...'"
+      ]
+    },
+    "clean-apt": {
+      "description": "Clean APT cache",
+      "execute": [
+        "sudo apt autoremove -y",
+        "sudo apt clean"
+      ]
+    },
+    "clean-npm": {
+      "description": "Clean npm cache",
+      "execute": [
+        "npm cache clean --force"
+      ]
+    },
+    "clean-gradle": {
+      "description": "Clean Gradle cache",
+      "execute": [
+        "rm -rf ~/.gradle/caches/"
+      ]
+    },
+    "create-flutter-sample": {
+      "description": "Create a sample Flutter project",
+      "execute": [
+        "mkdir -p ~/mobile-projects",
+        "{INSTALL_PATH}/flutter/bin/flutter create ~/mobile-projects/flutter_sample",
+        "echo 'Sample Flutter application created at ~/mobile-projects/flutter_sample'"
+      ]
+    },
+    "create-react-native-sample": {
+      "description": "Create a sample React Native project",
+      "execute": [
+        "mkdir -p ~/mobile-projects",
+        "cd ~/mobile-projects && npx react-native init ReactNativeSample",
+        "echo 'Sample React Native application created at ~/mobile-projects/ReactNativeSample'"
+      ]
+    },
+    "post-cleanup": {
+      "description": "Post-cleanup tasks",
+      "execute": [
+        "echo 'System cleanup completed'",
+        "echo 'Your mobile development environment is ready!'",
+        "echo 'To run the Flutter sample app: cd ~/mobile-projects/flutter_sample && flutter run'",
+        "echo 'To run the React Native sample app: cd ~/mobile-projects/ReactNativeSample && npx react-native start'"
+      ]
+    }
+  },
+  "sequence": [
+    "@pre-cleanup",
+    "@clean-apt",
+    "@clean-npm",
+    "@clean-gradle",
+    "system-cleanup:clean-tmp",
+    "@create-flutter-sample",
+    "@create-react-native-sample",
+    "@post-cleanup"
+  ]
+}

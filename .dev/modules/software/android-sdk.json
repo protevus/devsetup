@@ -1,0 +1,56 @@
+{
+  "type": "software",
+  "id": "android-sdk",
+  "name": "Android SDK",
+  "description": "Software development kit for Android applications",
+  "check_command": "{INSTALL_PATH}/android-sdk/cmdline-tools/latest/bin/sdkmanager --version",
+  "version_regex": "([0-9]+\\.[0-9]+)",
+  "install_commands": [
+    "mkdir -p {INSTALL_PATH}/android-sdk/cmdline-tools",
+    "wget -O cmdline-tools.zip https://dl.google.com/android/repository/commandlinetools-linux-10406996_latest.zip",
+    "unzip -q cmdline-tools.zip -d {INSTALL_PATH}/android-sdk/cmdline-tools",
+    "mv {INSTALL_PATH}/android-sdk/cmdline-tools/cmdline-tools {INSTALL_PATH}/android-sdk/cmdline-tools/latest",
+    "rm cmdline-tools.zip",
+    "yes | {INSTALL_PATH}/android-sdk/cmdline-tools/latest/bin/sdkmanager --licenses",
+    "{INSTALL_PATH}/android-sdk/cmdline-tools/latest/bin/sdkmanager \"platform-tools\" \"platforms;android-34\" \"build-tools;34.0.0\""
+  ],
+  "uninstall_commands": [
+    "rm -rf {INSTALL_PATH}/android-sdk"
+  ],
+  "path_exports": [
+    "export ANDROID_HOME=\"{INSTALL_PATH}/android-sdk\"",
+    "export PATH=\"$ANDROID_HOME/cmdline-tools/latest/bin:$PATH\"",
+    "export PATH=\"$ANDROID_HOME/platform-tools:$PATH\""
+  ],
+  "dependencies": [
+    "wget",
+    "unzip",
+    "openjdk-17-jdk"
+  ],
+  "commands": {
+    "update": {
+      "description": "Update Android SDK packages",
+      "execute": [
+        "{INSTALL_PATH}/android-sdk/cmdline-tools/latest/bin/sdkmanager --update"
+      ]
+    },
+    "list-packages": {
+      "description": "List installed and available packages",
+      "execute": [
+        "{INSTALL_PATH}/android-sdk/cmdline-tools/latest/bin/sdkmanager --list"
+      ]
+    },
+    "install-platform": {
+      "description": "Install a specific Android platform",
+      "execute": [
+        "{INSTALL_PATH}/android-sdk/cmdline-tools/latest/bin/sdkmanager \"platforms;android-33\""
+      ]
+    },
+    "install-build-tools": {
+      "description": "Install a specific build tools version",
+      "execute": [
+        "{INSTALL_PATH}/android-sdk/cmdline-tools/latest/bin/sdkmanager \"build-tools;33.0.2\""
+      ]
+    }
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "type": "workflow",
+  "id": "cleanup",
+  "name": "System Cleanup",
+  "description": "Clean up after installation",
+  "commands": {
+    "pre-cleanup": {
+      "description": "Pre-cleanup tasks",
+      "execute": [
+        "echo 'Starting system cleanup...'"
+      ]
+    },
+    "post-cleanup": {
+      "description": "Post-cleanup tasks",
+      "execute": [
+        "echo 'System cleanup completed'",
+        "echo 'Your development environment is ready!'"
+      ]
+    }
+  },
+  "sequence": [
+    "@pre-cleanup",
+    "system-cleanup:full-cleanup",
+    "@post-cleanup"
+  ]
+}

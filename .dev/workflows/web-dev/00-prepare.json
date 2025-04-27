@@ -1,0 +1,34 @@
+{
+  "type": "workflow",
+  "id": "prepare",
+  "name": "Prepare System",
+  "description": "Prepare the system for web development environment setup",
+  "commands": {
+    "update-system": {
+      "description": "Update system packages",
+      "execute": [
+        "sudo apt update",
+        "sudo apt upgrade -y"
+      ]
+    },
+    "install-dependencies": {
+      "description": "Install common dependencies",
+      "execute": [
+        "sudo apt install -y curl wget git build-essential apt-transport-https ca-certificates gnupg lsb-release software-properties-common"
+      ]
+    },
+    "create-directories": {
+      "description": "Create necessary directories",
+      "execute": [
+        "mkdir -p {INSTALL_PATH}",
+        "sudo chown -R $(whoami):$(whoami) {INSTALL_PATH}",
+        "mkdir -p ~/web-projects"
+      ]
+    }
+  },
+  "sequence": [
+    "@update-system",
+    "@install-dependencies",
+    "@create-directories"
+  ]
+}

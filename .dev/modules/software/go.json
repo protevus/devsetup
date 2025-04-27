@@ -1,0 +1,58 @@
+{
+  "type": "software",
+  "id": "go",
+  "name": "Go Programming Language",
+  "description": "Open source programming language designed for building simple, fast, and reliable software",
+  "check_command": "go version",
+  "version_regex": "go version go([0-9]+\\.[0-9]+\\.[0-9]+)",
+  "install_commands": [
+    "wget -O go.tar.gz https://go.dev/dl/go1.22.1.linux-amd64.tar.gz",
+    "sudo rm -rf {INSTALL_PATH}/go",
+    "sudo tar -C {INSTALL_PATH} -xzf go.tar.gz",
+    "rm go.tar.gz"
+  ],
+  "uninstall_commands": [
+    "sudo rm -rf {INSTALL_PATH}/go"
+  ],
+  "path_exports": [
+    "export PATH=\"{INSTALL_PATH}/go/bin:$PATH\"",
+    "export GOPATH=\"$HOME/go\"",
+    "export PATH=\"$GOPATH/bin:$PATH\""
+  ],
+  "dependencies": [
+    "wget"
+  ],
+  "commands": {
+    "update": {
+      "description": "Update Go to the latest version",
+      "execute": [
+        "wget -O go.tar.gz https://go.dev/dl/go1.22.1.linux-amd64.tar.gz",
+        "sudo rm -rf {INSTALL_PATH}/go",
+        "sudo tar -C {INSTALL_PATH} -xzf go.tar.gz",
+        "rm go.tar.gz"
+      ]
+    },
+    "env": {
+      "description": "Display Go environment information",
+      "execute": [
+        "go env"
+      ]
+    },
+    "create-hello-world": {
+      "description": "Create a Hello World Go program",
+      "execute": [
+        "mkdir -p ~/go-projects/hello",
+        "echo 'package main\n\nimport \"fmt\"\n\nfunc main() {\n\tfmt.Println(\"Hello, World!\")\n}' > ~/go-projects/hello/main.go",
+        "cd ~/go-projects/hello && go run main.go"
+      ]
+    },
+    "install-tools": {
+      "description": "Install common Go tools",
+      "execute": [
+        "go install golang.org/x/tools/gopls@latest",
+        "go install golang.org/x/tools/cmd/goimports@latest",
+        "go install github.com/go-delve/delve/cmd/dlv@latest"
+      ]
+    }
+  }
+}

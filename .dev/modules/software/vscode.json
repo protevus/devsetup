@@ -1,0 +1,44 @@
+{
+  "type": "software",
+  "id": "vscode",
+  "name": "Visual Studio Code",
+  "description": "Code editor for developers",
+  "check_command": "code --version",
+  "version_regex": "^([0-9]+\\.[0-9]+\\.[0-9]+)",
+  "install_commands": [
+    "wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg",
+    "sudo install -D -o root -g root -m 644 packages.microsoft.gpg /etc/apt/keyrings/packages.microsoft.gpg",
+    "sudo sh -c 'echo \"deb [arch=amd64,arm64,armhf signed-by=/etc/apt/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main\" > /etc/apt/sources.list.d/vscode.list'",
+    "rm -f packages.microsoft.gpg",
+    "sudo apt update",
+    "sudo apt install -y code"
+  ],
+  "uninstall_commands": [
+    "sudo apt purge -y code",
+    "sudo rm -f /etc/apt/sources.list.d/vscode.list",
+    "sudo rm -f /etc/apt/keyrings/packages.microsoft.gpg",
+    "sudo apt update"
+  ],
+  "dependencies": [
+    "wget",
+    "gpg",
+    "apt-transport-https"
+  ],
+  "path_exports": [],
+  "commands": {
+    "update": {
+      "description": "Update VSCode to the latest version",
+      "execute": [
+        "sudo apt update",
+        "sudo apt install --only-upgrade code"
+      ]
+    },
+    "reset-config": {
+      "description": "Reset VSCode configuration",
+      "execute": [
+        "rm -rf ~/.config/Code/User/settings.json",
+        "cp {TEMPLATE_DIR}/vscode/settings.json ~/.config/Code/User/"
+      ]
+    }
+  }
+}

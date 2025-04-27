@@ -1,0 +1,60 @@
+{
+  "type": "software",
+  "id": "dotnet",
+  "name": ".NET SDK",
+  "description": "Free, cross-platform, open-source developer platform for building many different types of applications",
+  "check_command": "dotnet --version",
+  "version_regex": "([0-9]+\\.[0-9]+\\.[0-9]+)",
+  "install_commands": [
+    "wget -O packages-microsoft-prod.deb https://packages.microsoft.com/config/ubuntu/24.04/packages-microsoft-prod.deb",
+    "sudo dpkg -i packages-microsoft-prod.deb",
+    "rm packages-microsoft-prod.deb",
+    "sudo apt update",
+    "sudo apt install -y dotnet-sdk-8.0"
+  ],
+  "uninstall_commands": [
+    "sudo apt purge -y dotnet-sdk-8.0",
+    "sudo apt purge -y packages-microsoft-prod",
+    "sudo rm -f /etc/apt/sources.list.d/microsoft-prod.list",
+    "sudo apt update"
+  ],
+  "dependencies": [
+    "wget"
+  ],
+  "path_exports": [],
+  "commands": {
+    "update": {
+      "description": "Update .NET SDK to the latest version",
+      "execute": [
+        "sudo apt update",
+        "sudo apt install --only-upgrade dotnet-sdk-8.0"
+      ]
+    },
+    "list-sdks": {
+      "description": "List installed .NET SDKs",
+      "execute": [
+        "dotnet --list-sdks"
+      ]
+    },
+    "list-runtimes": {
+      "description": "List installed .NET runtimes",
+      "execute": [
+        "dotnet --list-runtimes"
+      ]
+    },
+    "create-console-app": {
+      "description": "Create a new .NET console application",
+      "execute": [
+        "mkdir -p ~/dotnet-projects",
+        "cd ~/dotnet-projects && dotnet new console -n MyConsoleApp"
+      ]
+    },
+    "create-web-app": {
+      "description": "Create a new ASP.NET Core web application",
+      "execute": [
+        "mkdir -p ~/dotnet-projects",
+        "cd ~/dotnet-projects && dotnet new webapp -n MyWebApp"
+      ]
+    }
+  }
+}

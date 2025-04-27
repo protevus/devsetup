@@ -1,0 +1,84 @@
+{
+  "type": "command",
+  "id": "system-cleanup",
+  "name": "System Cleanup",
+  "description": "Clean up system by removing unused packages and cache",
+  "commands": {
+    "clean-apt": {
+      "description": "Clean APT cache",
+      "execute": [
+        "sudo apt autoremove -y",
+        "sudo apt clean"
+      ]
+    },
+    "clean-docker": {
+      "description": "Clean Docker images and containers",
+      "execute": [
+        "docker system prune -f"
+      ],
+      "requires": ["docker"]
+    },
+    "clean-npm": {
+      "description": "Clean npm cache",
+      "execute": [
+        "npm cache clean --force"
+      ],
+      "requires": ["npm"]
+    },
+    "clean-yarn": {
+      "description": "Clean yarn cache",
+      "execute": [
+        "yarn cache clean"
+      ],
+      "requires": ["yarn"]
+    },
+    "clean-pip": {
+      "description": "Clean pip cache",
+      "execute": [
+        "pip cache purge"
+      ],
+      "requires": ["pip"]
+    },
+    "clean-gradle": {
+      "description": "Clean Gradle cache",
+      "execute": [
+        "rm -rf ~/.gradle/caches/"
+      ]
+    },
+    "clean-maven": {
+      "description": "Clean Maven cache",
+      "execute": [
+        "rm -rf ~/.m2/repository/"
+      ]
+    },
+    "clean-tmp": {
+      "description": "Clean temporary files",
+      "execute": [
+        "sudo rm -rf /tmp/*"
+      ]
+    },
+    "full-cleanup": {
+      "description": "Perform a full system cleanup",
+      "execute": [
+        "@clean-apt",
+        "@clean-tmp"
+      ]
+    },
+    "dev-cleanup": {
+      "description": "Clean development tool caches",
+      "execute": [
+        "@clean-npm",
+        "@clean-yarn",
+        "@clean-pip",
+        "@clean-gradle",
+        "@clean-maven"
+      ]
+    },
+    "docker-cleanup": {
+      "description": "Clean Docker resources",
+      "execute": [
+        "@clean-docker"
+      ]
+    }
+  }
+}

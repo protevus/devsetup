@@ -1,0 +1,85 @@
+{
+  "type": "workflow",
+  "id": "software-installation",
+  "name": "Mobile Development Software Installation",
+  "description": "Install software packages for mobile development",
+  "modules": [
+    "vscode",
+    "gitkraken",
+    "chrome",
+    "jdk",
+    "nodejs",
+    "flutter",
+    "android-sdk",
+    "android-studio"
+  ],
+  "commands": {
+    "pre-install": {
+      "description": "Pre-installation setup",
+      "execute": [
+        "echo 'Starting mobile development software installation...'"
+      ]
+    },
+    "install-mobile-tools": {
+      "description": "Install additional mobile development tools",
+      "execute": [
+        "sudo npm install -g npm",
+        "sudo npm install -g yarn",
+        "sudo npm install -g typescript",
+        "sudo npm install -g cordova",
+        "sudo npm install -g ionic",
+        "sudo npm install -g react-native-cli",
+        "sudo npm install -g expo-cli",
+        "sudo npm install -g @capacitor/cli"
+      ]
+    },
+    "configure-android": {
+      "description": "Configure Android SDK and tools",
+      "execute": [
+        "echo 'export ANDROID_HOME=\"{INSTALL_PATH}/android-sdk\"' >> ~/.bashrc",
+        "echo 'export PATH=\"$ANDROID_HOME/cmdline-tools/latest/bin:$PATH\"' >> ~/.bashrc",
+        "echo 'export PATH=\"$ANDROID_HOME/platform-tools:$PATH\"' >> ~/.bashrc",
+        "echo 'export PATH=\"{INSTALL_PATH}/flutter/bin:$PATH\"' >> ~/.bashrc",
+        "source ~/.bashrc"
+      ]
+    },
+    "accept-android-licenses": {
+      "description": "Accept Android SDK licenses",
+      "execute": [
+        "yes | {INSTALL_PATH}/android-sdk/cmdline-tools/latest/bin/sdkmanager --licenses"
+      ]
+    },
+    "install-flutter-deps": {
+      "description": "Install Flutter dependencies",
+      "execute": [
+        "{INSTALL_PATH}/flutter/bin/flutter config --android-sdk {INSTALL_PATH}/android-sdk",
+        "{INSTALL_PATH}/flutter/bin/flutter doctor --android-licenses",
+        "{INSTALL_PATH}/flutter/bin/flutter doctor -v"
+      ]
+    },
+    "post-install": {
+      "description": "Post-installation configuration",
+      "execute": [
+        "echo 'Mobile development software installation completed'",
+        "echo 'Configuring installed software...'"
+      ]
+    }
+  },
+  "sequence": [
+    "@pre-install",
+    "vscode:install",
+    "gitkraken:install",
+    "chrome:install",
+    "jdk:install",
+    "nodejs:install",
+    "android-sdk:install",
+    "flutter:install",
+    "android-studio:install",
+    "vscode-extensions:install",
+    "@install-mobile-tools",
+    "@configure-android",
+    "@accept-android-licenses",
+    "@install-flutter-deps",
+    "@post-install"
+  ]
+}

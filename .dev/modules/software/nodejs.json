@@ -1,0 +1,66 @@
+{
+  "type": "software",
+  "id": "nodejs",
+  "name": "Node.js",
+  "description": "JavaScript runtime built on Chrome's V8 JavaScript engine",
+  "check_command": "node --version",
+  "version_regex": "v([0-9]+\\.[0-9]+\\.[0-9]+)",
+  "install_commands": [
+    "curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -",
+    "sudo apt install -y nodejs"
+  ],
+  "uninstall_commands": [
+    "sudo apt purge -y nodejs",
+    "sudo rm -f /etc/apt/sources.list.d/nodesource.list",
+    "sudo apt update"
+  ],
+  "dependencies": [
+    "curl"
+  ],
+  "path_exports": [],
+  "commands": {
+    "update": {
+      "description": "Update Node.js to the latest version",
+      "execute": [
+        "sudo apt update",
+        "sudo apt install --only-upgrade nodejs"
+      ]
+    },
+    "install-npm-packages": {
+      "description": "Install common global npm packages",
+      "execute": [
+        "sudo npm install -g npm",
+        "sudo npm install -g yarn",
+        "sudo npm install -g typescript",
+        "sudo npm install -g ts-node",
+        "sudo npm install -g nodemon",
+        "sudo npm install -g eslint",
+        "sudo npm install -g prettier"
+      ]
+    },
+    "create-node-project": {
+      "description": "Create a new Node.js project",
+      "execute": [
+        "mkdir -p ~/node-projects/my-project",
+        "cd ~/node-projects/my-project && npm init -y",
+        "cd ~/node-projects/my-project && echo 'console.log(\"Hello, Node.js!\");' > index.js",
+        "cd ~/node-projects/my-project && node index.js"
+      ]
+    },
+    "create-express-project": {
+      "description": "Create a new Express.js project",
+      "execute": [
+        "mkdir -p ~/node-projects/express-app",
+        "cd ~/node-projects/express-app && npm init -y",
+        "cd ~/node-projects/express-app && npm install express",
+        "cd ~/node-projects/express-app && echo 'const express = require(\"express\");\\nconst app = express();\\nconst port = 3000;\\n\\napp.get(\"/\", (req, res) => {\\n  res.send(\"Hello, Express!\");\\n});\\n\\napp.listen(port, () => {\\n  console.log(`Example app listening at http://localhost:${port}`);\\n});' > index.js"
+      ]
+    },
+    "npm-cache-clean": {
+      "description": "Clean npm cache",
+      "execute": [
+        "npm cache clean --force"
+      ]
+    }
+  }
+}

@@ -1,0 +1,32 @@
+# VSCode Extensions
+# Format: publisher.extension-name
+
+# General
+ms-vscode.vscode-node-azure-pack
+ms-vscode-remote.vscode-remote-extensionpack
+ms-vsliveshare.vsliveshare
+
+# Git
+eamodio.gitlens
+mhutchie.git-graph
+
+# Languages
+ms-vscode.cpptools
+ms-python.python
+ms-dotnettools.csharp
+golang.go
+redhat.java
+dart-code.dart-code
+dart-code.flutter
+
+# Web Development
+dbaeumer.vscode-eslint
+esbenp.prettier-vscode
+ritwickdey.liveserver
+
+# Themes
+dracula-theme.theme-dracula
+pkief.material-icon-theme
+
+# Utilities
+streetsidesoftware.code-spell-checker

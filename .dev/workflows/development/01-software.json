@@ -1,0 +1,50 @@
+{
+  "type": "workflow",
+  "id": "software-installation",
+  "name": "Development Software Installation",
+  "description": "Install all development software packages",
+  "modules": [
+    "vscode",
+    "gitkraken",
+    "chrome",
+    "edge",
+    "nodejs",
+    "jdk",
+    "go",
+    "dotnet",
+    "flutter",
+    "android-sdk",
+    "android-studio"
+  ],
+  "commands": {
+    "pre-install": {
+      "description": "Pre-installation setup",
+      "execute": [
+        "echo 'Starting development software installation...'"
+      ]
+    },
+    "post-install": {
+      "description": "Post-installation configuration",
+      "execute": [
+        "echo 'Software installation completed'",
+        "echo 'Configuring installed software...'"
+      ]
+    }
+  },
+  "sequence": [
+    "@pre-install",
+    "vscode:install",
+    "gitkraken:install",
+    "chrome:install",
+    "edge:install",
+    "nodejs:install",
+    "jdk:install",
+    "go:install",
+    "dotnet:install",
+    "flutter:install",
+    "android-sdk:install",
+    "android-studio:install",
+    "vscode-extensions:install",
+    "@post-install"
+  ]
+}

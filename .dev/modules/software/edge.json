@@ -1,0 +1,37 @@
+{
+  "type": "software",
+  "id": "edge",
+  "name": "Microsoft Edge",
+  "description": "Web browser from Microsoft",
+  "check_command": "microsoft-edge --version",
+  "version_regex": "Microsoft Edge ([0-9]+\\.[0-9]+\\.[0-9]+\\.[0-9]+)",
+  "install_commands": [
+    "wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft-edge.gpg",
+    "sudo install -D -o root -g root -m 644 microsoft-edge.gpg /etc/apt/keyrings/microsoft-edge.gpg",
+    "sudo sh -c 'echo \"deb [arch=amd64 signed-by=/etc/apt/keyrings/microsoft-edge.gpg] https://packages.microsoft.com/repos/edge stable main\" > /etc/apt/sources.list.d/microsoft-edge.list'",
+    "rm -f microsoft-edge.gpg",
+    "sudo apt update",
+    "sudo apt install -y microsoft-edge-stable"
+  ],
+  "uninstall_commands": [
+    "sudo apt purge -y microsoft-edge-stable",
+    "sudo rm -f /etc/apt/sources.list.d/microsoft-edge.list",
+    "sudo rm -f /etc/apt/keyrings/microsoft-edge.gpg",
+    "sudo apt update"
+  ],
+  "dependencies": [
+    "wget",
+    "gpg",
+    "apt-transport-https"
+  ],
+  "path_exports": [],
+  "commands": {
+    "update": {
+      "description": "Update Microsoft Edge to the latest version",
+      "execute": [
+        "sudo apt update",
+        "sudo apt install --only-upgrade microsoft-edge-stable"
+      ]
+    }
+  }
+}
